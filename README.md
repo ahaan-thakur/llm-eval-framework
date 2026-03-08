@@ -1,14 +1,14 @@
-# 🧪 LLM Evaluation Framework
+# LLM Evaluation Framework
 
 A production-grade framework for benchmarking and comparing LLMs on accuracy, hallucination risk, tone & clarity, and response latency — powered entirely by **free-tier services**.
 
-## 🏗️ Architecture
+## Architecture
 
 ```
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│  React Dashboard│────▶│  FastAPI Backend  │────▶│   Groq API      │
-│  (Vercel)       │◀────│  (Render)         │     │ (LLMs + Judge)  │
-└─────────────────┘     └────────┬─────────┘     └─────────────────┘
+┌─────────────────┐       ┌──────────────────┐     ┌─────────────────┐
+│  React Dashboard│────▶ │  FastAPI Backend  │────▶│   Groq API      │
+│  (Vercel)       │◀──── │  (Render)         │     │ (LLMs + Judge)  │
+└─────────────────┘       └────────┬─────────┘     └─────────────────┘
                                   │
                          ┌────────▼─────────┐
                          │   Supabase DB     │
@@ -16,7 +16,7 @@ A production-grade framework for benchmarking and comparing LLMs on accuracy, ha
                          └──────────────────┘
 ```
 
-## 📊 What Gets Evaluated
+## What Gets Evaluated
 
 | Metric | Description | Weight |
 |--------|-------------|--------|
@@ -25,7 +25,7 @@ A production-grade framework for benchmarking and comparing LLMs on accuracy, ha
 | Tone & Clarity | Clear, well-structured response? | 25% |
 | Latency | Real response time (ms) | Tracked |
 
-## 🤖 Models Compared
+## Models Compared
 
 | Model | Params | Characteristics |
 |-------|--------|-----------------|
@@ -33,7 +33,7 @@ A production-grade framework for benchmarking and comparing LLMs on accuracy, ha
 | `gemma2-9b` | 9B | Balanced |
 | `llama-3.3-70b` | 70B | Most capable |
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Clone & Install
 ```bash
@@ -71,7 +71,7 @@ curl -X POST http://localhost:8000/evaluate/ \
   }'
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 llm-eval/
@@ -109,13 +109,13 @@ llm-eval/
 | `/health` | GET | Health check |
 | `/docs` | GET | Interactive API docs |
 
-## 📈 Roadmap
+## Roadmap
 
 - [x] Phase 1: Core Evaluation Engine
 - [ ] Phase 2: Supabase persistence & run history
 - [ ] Phase 3: React dashboard with charts
 - [ ] Phase 4: Full deployment
 
-## 👤 Author
+## Author
 
-**Ahaan Thakur** — [LinkedIn](https://linkedin.com/in/ahaan-thakur) | [GitHub](https://github.com/YOUR_USERNAME)
+**Ahaan Thakur** — [LinkedIn](https://linkedin.com/in/ahaan-thakur) | [GitHub](https://github.com/ahaan-thakur)
