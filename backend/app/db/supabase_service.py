@@ -1,17 +1,28 @@
-from supabase import create_client, Client
-from app.core.config import get_settings
-from functools import lru_cache
 import logging
+from functools import lru_cache
+from app.core.config import get_settings
 
 logger = logging.getLogger(__name__)
 
 
 @lru_cache()
-def get_supabase_client() -> Client:
+def get_supabase_client():
     settings = get_settings()
     if not settings.supabase_url or not settings.supabase_key:
         raise ValueError("SUPABASE_URL and SUPABASE_KEY must be set in environment variables.")
-    return create_client(settings.supabase_url, settings.supabase_key)
+
+    url = settings.supabase_url
+    key = settings.supabase_key
+
+    try:
+        from supabase import create_client, ClientOptions
+        return create_client(url, key, options=ClientOptions(
+            postgrest_client_timeout=30,
+            storage_client_timeout=30,
+        ))
+    except TypeError:
+        from supabase import create_client
+        return create_client(url, key)
 
 
 async def save_evaluation_run(eval_response: dict) -> str:
