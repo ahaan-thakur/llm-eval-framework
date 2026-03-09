@@ -54,3 +54,15 @@ async def root():
 @app.get("/health", tags=["Health"])
 async def health():
     return {"status": "healthy"}
+
+
+@app.get("/debug-env", tags=["Health"])
+async def debug_env():
+    import os
+    return {
+        "groq_set": bool(os.environ.get("GROQ_API_KEY")),
+        "groq_prefix": os.environ.get("GROQ_API_KEY", "")[:8],
+        "supabase_url_set": bool(os.environ.get("SUPABASE_URL")),
+        "supabase_key_set": bool(os.environ.get("SUPABASE_KEY")),
+        "supabase_key_prefix": os.environ.get("SUPABASE_KEY", "")[:8],
+    }
