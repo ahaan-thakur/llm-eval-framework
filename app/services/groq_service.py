@@ -10,7 +10,7 @@ settings = get_settings()
 AVAILABLE_MODELS = {
     "llama-3.1-8b": "llama-3.1-8b-instant",
     "llama-3.3-70b": "llama-3.3-70b-versatile",
-    "gemma2-9b": "gemma2-9b-it",
+    "llama-prompt-guard-2-86m": "llama-prompt-guard-2-86m",
 }
 
 JUDGE_MODEL = "llama-3.3-70b-versatile"

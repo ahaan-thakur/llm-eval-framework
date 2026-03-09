@@ -17,12 +17,6 @@ Compare Groq-hosted LLMs on:
 - **Tone & Clarity** — Is the response well-structured?
 - **Latency** — Real response time in milliseconds
 
-### Models Evaluated
-| Model | Size | Speed |
-|-------|------|-------|
-| llama-3.1-8b | 8B params | Fastest |
-| gemma2-9b | 9B params | Fast |
-| llama-3.3-70b | 70B params | Most capable |
 
 ### How It Works
 1. Submit test cases with questions + expected answers
