@@ -31,12 +31,14 @@ Compare Groq-hosted LLMs on:
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://llm-eval-framework-one.vercel.app/",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 app.include_router(evaluation.router)
 app.include_router(history.router)
