@@ -10,7 +10,7 @@ settings = get_settings()
 AVAILABLE_MODELS = {
     "llama-3.1-8b": "llama-3.1-8b-instant",
     "llama-3.3-70b": "llama-3.3-70b-versatile",
-    "llama-prompt-guard-2-86m": "llama-prompt-guard-2-86m",
+    "gpt-oss-120b": "openai/gpt-oss-120b",
 }
 
 JUDGE_MODEL = "llama-3.3-70b-versatile"
