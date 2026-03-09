@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import get_settings
-from app.routers import evaluation
+from app.routers import evaluation, history
 
 settings = get_settings()
 
@@ -12,10 +12,10 @@ app = FastAPI(
 ## LLM Evaluation Framework
 
 Compare Groq-hosted LLMs on:
-- ✅ **Accuracy** — Factual correctness vs ground truth
-- 🔍 **Hallucination Risk** — Does the model fabricate content?
-- 🗣️ **Tone & Clarity** — Is the response well-structured?
-- ⚡ **Latency** — Real response time in milliseconds
+- **Accuracy** — Factual correctness vs ground truth
+- **Hallucination Risk** — Does the model fabricate content?
+- **Tone & Clarity** — Is the response well-structured?
+- **Latency** — Real response time in milliseconds
 
 ### Models Evaluated
 | Model | Size | Speed |
@@ -34,7 +34,7 @@ Compare Groq-hosted LLMs on:
     redoc_url="/redoc",
 )
 
-# CORS — allow all origins for development, tighten in production
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -43,8 +43,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Routers
+
 app.include_router(evaluation.router)
+app.include_router(history.router)
 
 
 @app.get("/", tags=["Health"])

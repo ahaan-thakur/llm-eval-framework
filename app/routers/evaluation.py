@@ -1,9 +1,12 @@
 import time
 import uuid
+import logging
 from fastapi import APIRouter, HTTPException
 from app.models.schemas import EvaluationRequest, EvaluationResponse
 from app.services.groq_service import run_evaluation, compute_summary, AVAILABLE_MODELS
+from app.db.supabase_service import save_evaluation_run
 
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/evaluate", tags=["Evaluation"])
 
 
@@ -40,16 +43,30 @@ async def evaluate_models(request: EvaluationRequest):
     winner = summary[0]["model_name"] if summary else "N/A"
     eval_time = round(time.time() - start_time, 2)
 
-    return EvaluationResponse(
-        run_id=str(uuid.uuid4()),
+    run_id = str(uuid.uuid4())
+    models_evaluated = list({
+        sc["model_name"] for r in results for sc in r["model_scores"]
+    })
+
+    response_data = EvaluationResponse(
+        run_id=run_id,
         run_name=request.run_name,
         total_cases=len(results),
-        models_evaluated=list({s["model_name"] for s in [sc for r in results for sc in r["model_scores"]]}),
+        models_evaluated=models_evaluated,
         results=results,
         summary=summary,
         winner=winner,
         evaluation_time_s=eval_time,
     )
+
+    # Persist to Supabase (non-blocking — don't fail the response if DB write fails)
+    try:
+        await save_evaluation_run(response_data.model_dump())
+        logger.info(f"Run {run_id} saved to Supabase.")
+    except Exception as e:
+        logger.warning(f"Could not save run {run_id} to Supabase: {e}")
+
+    return response_data
 
 
 @router.get("/models")
